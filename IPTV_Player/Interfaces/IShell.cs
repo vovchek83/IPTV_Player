@@ -1,3 +1,6 @@
-namespace IPTV_Player {
-    public interface IShell {}
+namespace IPTV_Player.Interfaces {
+    public interface IShell
+    {
+        
+    }
 }

@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTV.DataModel", "IPTV.Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTV.Logger", "IPTV.Logger\IPTV.Logger.csproj", "{D7ACEC79-6E90-4488-9140-22CA559D30B0}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IPTV.Wrappers", "IPTV.Wrappers", "{12A7572A-7842-469D-9CCC-D0A033ACB0E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3U8Wrapper", "M3U8Wrapper\M3U8Wrapper.csproj", "{578E8EA1-9FC8-4F6D-8341-DDE7727FE6A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,8 +37,15 @@ Global
 		{D7ACEC79-6E90-4488-9140-22CA559D30B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7ACEC79-6E90-4488-9140-22CA559D30B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7ACEC79-6E90-4488-9140-22CA559D30B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578E8EA1-9FC8-4F6D-8341-DDE7727FE6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578E8EA1-9FC8-4F6D-8341-DDE7727FE6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578E8EA1-9FC8-4F6D-8341-DDE7727FE6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578E8EA1-9FC8-4F6D-8341-DDE7727FE6A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{578E8EA1-9FC8-4F6D-8341-DDE7727FE6A9} = {12A7572A-7842-469D-9CCC-D0A033ACB0E3}
 	EndGlobalSection
 EndGlobal

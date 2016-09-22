@@ -1,6 +1,11 @@
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
+using System.ComponentModel.Composition.Primitives;
+using System.Linq;
 using IPTV.Logger;
 using IPTV_Player.Infrastructure.Services;
 using IPTV_Player.Infrastructure.Services.Interfaces;
+using IPTV_Player.Interfaces;
 using IPTV_Player.ViewModels;
 
 namespace IPTV_Player
@@ -11,8 +16,8 @@ namespace IPTV_Player
 
     public class AppBootstrapper : BootstrapperBase
     {
-        SimpleContainer _container;
-        private static bool _logFileDeleted;
+        private CompositionContainer _container;
+       
         private static ILogger _logger;
 
         public AppBootstrapper()
@@ -23,35 +28,45 @@ namespace IPTV_Player
         protected override void Configure()
         {
 
-           // LogManager.GetLog = type => new FileLogger(type, CanDeleteLogFile);
+            // LogManager.GetLog = type => new FileLogger(type, CanDeleteLogFile);
+            _container = new CompositionContainer(
+                            new AggregateCatalog(
+                                AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
+                                )
+                            );
 
-            _container = new SimpleContainer();
+            var batch = new CompositionBatch();
 
-            _container.Singleton<IWindowManager, WindowManager>();
-            _container.Singleton<IEventAggregator, EventAggregator>();
-            _container.Singleton<IDecompressService, DecompressService>();
-            _container.Singleton<IDownloadService, DownloadService>();
-            _container.PerRequest<IShell, ShellViewModel>();
-            _container.Singleton<ILogger, Logger>();
+
+            batch.AddExportedValue<IWindowManager>(new WindowManager());
+            batch.AddExportedValue<IEventAggregator>(new EventAggregator());
+            batch.AddExportedValue<ILogger>(new Logger());
+
+            batch.AddExportedValue(_container);
+
+            _container.Compose(batch);
         }
 
-        protected override object GetInstance(Type service, string key)
+        protected override object GetInstance(Type serviceType, string key)
         {
-            var instance = _container.GetInstance(service, key);
-            if (instance != null)
-                return instance;
+            string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(serviceType) : key;
+            var exports = _container.GetExportedValues<object>(contract);
 
-            throw new InvalidOperationException("Could not locate any instances.");
+            if (exports.Any())
+                return exports.First();
+
+            throw new Exception(string.Format("Could not locate any instances of contract {0}.", contract));
         }
 
-        protected override IEnumerable<object> GetAllInstances(Type service)
+        protected override IEnumerable<object> GetAllInstances(Type serviceType)
         {
-            return _container.GetAllInstances(service);
+            return _container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
         }
+
 
         protected override void BuildUp(object instance)
         {
-            _container.BuildUp(instance);
+            _container.SatisfyImportsOnce(instance);
         }
 
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
@@ -60,29 +75,15 @@ namespace IPTV_Player
             {
                 _logger = IoC.Get<ILogger>();
                 _logger.Info("Start Application");
-                DisplayRootViewFor<IShell>();
+
+                IShell mainWindow = _container.GetExportedValue<IShell>();
+                IWindowManager windowManager = IoC.Get<IWindowManager>();
+                windowManager.ShowWindow(mainWindow);
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception);
+                _logger.Error(exception.Message);
             }
         }
-
-        private static bool CanDeleteLogFile()
-        {
-            bool output;
-            if (!_logFileDeleted)
-            {
-                output = true;
-                _logFileDeleted = true;
-            }
-            else
-            {
-                output = false;
-            }
-
-            return output;
-        }
-
     }
 }
