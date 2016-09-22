@@ -1,5 +1,4 @@
-using System.IO;
-using IPTV_Player.Infrastructure;
+using IPTV.Logger;
 using IPTV_Player.Infrastructure.Services;
 using IPTV_Player.Infrastructure.Services.Interfaces;
 using IPTV_Player.ViewModels;
@@ -14,9 +13,8 @@ namespace IPTV_Player
     {
         SimpleContainer _container;
         private static bool _logFileDeleted;
-        private const string EPG_URL = "http://teleguide.info/download/new3/xmltv.xml.gz";
+        private static ILogger _logger;
 
-        private static ILog _logger;
         public AppBootstrapper()
         {
             Initialize();
@@ -25,8 +23,8 @@ namespace IPTV_Player
         protected override void Configure()
         {
 
-            LogManager.GetLog = type => new FileLogger(type, CanDeleteLogFile);
-            _logger = LogManager.GetLog(typeof(AppBootstrapper));
+           // LogManager.GetLog = type => new FileLogger(type, CanDeleteLogFile);
+
             _container = new SimpleContainer();
 
             _container.Singleton<IWindowManager, WindowManager>();
@@ -34,6 +32,7 @@ namespace IPTV_Player
             _container.Singleton<IDecompressService, DecompressService>();
             _container.Singleton<IDownloadService, DownloadService>();
             _container.PerRequest<IShell, ShellViewModel>();
+            _container.Singleton<ILogger, Logger>();
         }
 
         protected override object GetInstance(Type service, string key)
@@ -57,18 +56,16 @@ namespace IPTV_Player
 
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
-            string appFolder = CreateAppDataFolder();
-
-            IDownloadService downloadService = IoC.Get<IDownloadService>();
-            FileInfo file = downloadService.DownloadFile(EPG_URL, appFolder, "xmltv.xml.gz");
-
-            if (file != null)
+            try
             {
-                IDecompressService decompressService = IoC.Get<IDecompressService>();
-                decompressService.Decompress(file);
+                _logger = IoC.Get<ILogger>();
+                _logger.Info("Start Application");
+                DisplayRootViewFor<IShell>();
             }
-
-            DisplayRootViewFor<IShell>();
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
         }
 
         private static bool CanDeleteLogFile()
@@ -87,21 +84,5 @@ namespace IPTV_Player
             return output;
         }
 
-        private string CreateAppDataFolder()
-        {
-            string path = null;
-            try
-            {
-                var appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                path = Path.Combine(appDataPath, "IPTV_Player");
-                if (!Directory.Exists(path))
-                    Directory.CreateDirectory(path);
-            }
-            catch (Exception e)
-            {
-                _logger.Error(e);
-            }
-            return path;
-        }
     }
 }

@@ -116,16 +116,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IPTV_Player.Infrastructure\IPTV_Player.Infrastructure.csproj">
+    <ProjectReference Include="..\IPTV.Logger\IPTV.Logger.csproj">
+      <Project>{d7acec79-6e90-4488-9140-22ca559d30b0}</Project>
+      <Name>IPTV.Logger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IPTV.DataModel\IPTV.DataModel.csproj">
+      <Project>{7656648c-e95d-4235-9569-e8581d60ac47}</Project>
+      <Name>IPTV.DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IPTV.Infrastructure\IPTV.Infrastructure.csproj">
       <Project>{340545bd-982d-4eaf-a42a-805841dfd5e2}</Project>
-      <Name>IPTV_Player.Infrastructure</Name>
+      <Name>IPTV.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
