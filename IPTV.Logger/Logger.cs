@@ -23,7 +23,7 @@ namespace IPTV.Logger
             patternLayout.ActivateOptions();
 
             RollingFileAppender roller = new RollingFileAppender();
-            roller.AppendToFile = false;
+            roller.AppendToFile = true;
             roller.File = @"Logs\LogFile.xml";
             roller.Layout = patternLayout;
             roller.MaxSizeRollBackups = 10;
