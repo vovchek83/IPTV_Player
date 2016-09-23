@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -79,8 +80,12 @@
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Interfaces\IShell.cs" />
     <Compile Include="NavigationState.cs" />
+    <Compile Include="ViewModels\ChannelViewModel.cs" />
     <Compile Include="ViewModels\PlayerViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\ChannelsListView.xaml.cs">
+      <DependentUpon>ChannelsListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlayerView.xaml.cs">
       <DependentUpon>PlayerView.xaml</DependentUpon>
     </Compile>
@@ -117,6 +122,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ChannelsListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\PlayerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,6 +151,10 @@
     <ProjectReference Include="..\IPTV.Infrastructure\IPTV.Infrastructure.csproj">
       <Project>{340545bd-982d-4eaf-a42a-805841dfd5e2}</Project>
       <Name>IPTV.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\M3U8Wrapper\M3U8Wrapper.csproj">
+      <Project>{578e8ea1-9fc8-4f6d-8341-dde7727fe6a9}</Project>
+      <Name>M3U8Wrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

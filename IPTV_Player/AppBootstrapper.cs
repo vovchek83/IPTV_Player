@@ -2,6 +2,7 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Linq;
+using System.Reflection;
 using IPTV.Logger;
 using IPTV_Player.Infrastructure.Services;
 using IPTV_Player.Infrastructure.Services.Interfaces;
@@ -13,6 +14,7 @@ namespace IPTV_Player
     using System;
     using System.Collections.Generic;
     using Caliburn.Micro;
+    using System.IO;
 
     public class AppBootstrapper : BootstrapperBase
     {
@@ -27,13 +29,15 @@ namespace IPTV_Player
 
         protected override void Configure()
         {
+            var catalog = new AggregateCatalog();
+            //Adds all the parts found in the same assembly as the Program class
+            catalog.Catalogs.Add(new AggregateCatalog(
+                AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()));
 
+            catalog.Catalogs.Add(new AggregateCatalog(new DirectoryCatalog(
+                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
             // LogManager.GetLog = type => new FileLogger(type, CanDeleteLogFile);
-            _container = new CompositionContainer(
-                            new AggregateCatalog(
-                                AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()
-                                )
-                            );
+            _container = new CompositionContainer(catalog);
 
             var batch = new CompositionBatch();
 

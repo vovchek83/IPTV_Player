@@ -45,7 +45,7 @@ namespace IPTV_Player.ViewModels
 
             _navigationStates = new Dictionary<NavigationState, Action<NavigationState>>
             {
-                [NavigationState.Player] = x => InternalNavigateTo(x, playerViewModel),
+               [NavigationState.Player] = x => InternalNavigateTo(x, playerViewModel),
 
             };
         }
