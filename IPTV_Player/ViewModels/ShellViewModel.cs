@@ -22,6 +22,8 @@ namespace IPTV_Player.ViewModels
 
         #region Properties
 
+        public override string DisplayName { get; set; } = "IPTV Player";
+
         public NavigationState NavigationState
         {
             get { return _navigationState; }

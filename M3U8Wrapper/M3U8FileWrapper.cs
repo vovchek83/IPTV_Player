@@ -29,16 +29,25 @@ namespace M3U8Wrapper
 
         public IEnumerable<ChannelModel> WrappChannels()
         {
+            IEnumerable<ChannelModel> retModels = null;
             try
             {
                 var file = _downloadService.DownloadFile(
                     "https://edem.tv/playlists/uplist/1c2da6c7d34477003a5b8e8acc9903b7/edem_pl.m3u8", "edem.m3u8");
-                
-                return ExtractChanlesFromFile(file.Create());
+
+                if (string.IsNullOrEmpty(file) == false)
+                {
+                    retModels = ExtractChanlesFromFile(file);
+                }
+
+                //TODO message to user
+                _logger.Error("failed to get file");
+
+                return retModels;
             }
             catch (Exception e)
             {
-               _logger.Error(e.Message);
+                _logger.Error(e.Message);
                 return null;
             }
         }
@@ -46,7 +55,7 @@ namespace M3U8Wrapper
 
         #region Private Methods
 
-        private IEnumerable<ChannelModel> ExtractChanlesFromFile(Stream filePath)
+        private IEnumerable<ChannelModel> ExtractChanlesFromFile(string filePath)
         {
             IEnumerable<ChannelModel> chanelModelList = null;
             try
@@ -70,7 +79,7 @@ namespace M3U8Wrapper
             }
             catch (Exception ex)
             {
-              _logger.Error(ex.Message);
+                _logger.Error(ex.Message);
             }
             return chanelModelList;
         }
@@ -162,7 +171,7 @@ namespace M3U8Wrapper
             return retString.TrimStart().TrimEnd();
         }
 
-        private  EChannelGroup ExtractGroup(string p)
+        private EChannelGroup ExtractGroup(string p)
         {
             EChannelGroup group = EChannelGroup.None;
             string groupString = string.Empty;

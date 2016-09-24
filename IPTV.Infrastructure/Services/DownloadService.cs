@@ -27,23 +27,22 @@ namespace IPTV.Infrastructure.Services
             }
         }
 
-        public FileInfo DownloadFile(string url, string fileName)
+        public string DownloadFile(string url, string fileName)
         {
-            FileInfo fileInfo = null;
+            string path = null;
             try
             {
-                string path = Path.Combine(ApplicationDataFolder, fileName);
+                path = Path.Combine(ApplicationDataFolder, fileName);
                 using (WebClient client = new WebClient())
                 {
                     client.DownloadFile(url, path);
                 }
-                fileInfo = new FileInfo(path);
             }
             catch (Exception e)
             {
                 Logger.Error(e);
             }
-            return fileInfo;
+            return path;
         }
 
         public void DaownloadFileAsync(string url, string fileName)

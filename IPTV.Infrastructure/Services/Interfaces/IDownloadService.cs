@@ -7,7 +7,7 @@ namespace IPTV_Player.Infrastructure.Services.Interfaces
     {
         string ApplicationDataFolder { get; }
 
-        FileInfo DownloadFile(string url,string fileName);
+        string DownloadFile(string url,string fileName);
 
         void DaownloadFileAsync(string url,string fileName);
     }
