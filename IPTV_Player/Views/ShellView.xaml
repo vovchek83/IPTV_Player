@@ -1,16 +1,15 @@
-﻿<Window x:Class="IPTV_Player.Views.ShellView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-       xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
-
-             x:Name="root"
-             
+﻿<presentation:Window x:Class="IPTV_Player.Views.ShellView"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro.Platform"
+             xmlns:presentation="clr-namespace:IPTV.Core.Presentation;assembly=IPTV.Core.Presentation"
+             x:Name="root"    
              MinHeight="600"
              MinWidth="800"
              WindowState="Normal"
-             
+             Style="{StaticResource WindowStyle}"
              d:DesignWidth="2379.799" 
              d:DesignHeight="1334.346"
              WindowStartupLocation="CenterScreen"
@@ -73,4 +72,4 @@
                             cal:View.Model="{Binding DataContext.ActiveItem, ElementName=root}" />
         </Grid>
     </Grid>
-</Window>
+</presentation:Window>

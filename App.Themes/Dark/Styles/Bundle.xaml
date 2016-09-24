@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/RadioButton.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/Window.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/TextBlock.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/Buttons.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/ScrollViewer.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/ListView.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+  
+</ResourceDictionary>
+

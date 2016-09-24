@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Assets/Consts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Assets/Brushes.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Assets/Images.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Assets/Texts.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+</ResourceDictionary>

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F767989-B1A2-4E76-A907-6800B40C8AA3}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{BAF9EC5F-1F58-4F58-91AA-0EDA454C07F6}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IPTV_Player</RootNamespace>
-    <AssemblyName>IPTV_Player</AssemblyName>
+    <RootNamespace>IPTV.Core.Presentation</RootNamespace>
+    <AssemblyName>IPTV.Core.Presentation</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=3.0.1.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.Core.3.0.1\lib\net45\Caliburn.Micro.dll</HintPath>
@@ -49,7 +52,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Caliburn.Micro.3.0.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -69,31 +71,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AppBootstrapper.cs" />
-    <Compile Include="Interfaces\IShell.cs" />
-    <Compile Include="NavigationState.cs" />
-    <Compile Include="ViewModels\ChannelViewModel.cs" />
-    <Compile Include="ViewModels\PlayerViewModel.cs" />
-    <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="Views\ChannelsListView.xaml.cs">
-      <DependentUpon>ChannelsListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PlayerView.xaml.cs">
-      <DependentUpon>PlayerView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ShellView.xaml.cs">
-      <DependentUpon>ShellView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,6 +84,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ScreenViewModel.cs" />
+    <Compile Include="Window.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -119,50 +98,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\ChannelsListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PlayerView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ShellView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\App.Themes\App.Themes.csproj">
-      <Project>{077e3867-45db-4b4d-b872-c065febc5095}</Project>
-      <Name>App.Themes</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IPTV.Core.Presentation\IPTV.Core.Presentation.csproj">
-      <Project>{baf9ec5f-1f58-4f58-91aa-0eda454c07f6}</Project>
-      <Name>IPTV.Core.Presentation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IPTV.Logger\IPTV.Logger.csproj">
       <Project>{d7acec79-6e90-4488-9140-22ca559d30b0}</Project>
       <Name>IPTV.Logger</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IPTV.DataModel\IPTV.DataModel.csproj">
-      <Project>{7656648c-e95d-4235-9569-e8581d60ac47}</Project>
-      <Name>IPTV.DataModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IPTV.Infrastructure\IPTV.Infrastructure.csproj">
-      <Project>{340545bd-982d-4eaf-a42a-805841dfd5e2}</Project>
-      <Name>IPTV.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\M3U8Wrapper\M3U8Wrapper.csproj">
-      <Project>{578e8ea1-9fc8-4f6d-8341-dde7727fe6a9}</Project>
-      <Name>M3U8Wrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
