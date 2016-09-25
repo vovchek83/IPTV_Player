@@ -3,6 +3,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Documents;
 using IPTV.Logger;
 using IPTV_Player.Infrastructure.Services;
 using IPTV_Player.Infrastructure.Services.Interfaces;
@@ -19,7 +20,7 @@ namespace IPTV_Player
     public class AppBootstrapper : BootstrapperBase
     {
         private CompositionContainer _container;
-       
+
         private static ILogger _logger;
 
         public AppBootstrapper()
@@ -34,9 +35,9 @@ namespace IPTV_Player
             catalog.Catalogs.Add(new AggregateCatalog(
                 AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()));
 
-            catalog.Catalogs.Add(new AggregateCatalog(new DirectoryCatalog(
-                Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
-            // LogManager.GetLog = type => new FileLogger(type, CanDeleteLogFile);
+            //catalog.Catalogs.Add(new AggregateCatalog(new DirectoryCatalog(
+            //    Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location))));
+           
             _container = new CompositionContainer(catalog);
 
             var batch = new CompositionBatch();
@@ -67,6 +68,19 @@ namespace IPTV_Player
             return _container.GetExportedValues<object>(AttributedModelServices.GetContractName(serviceType));
         }
 
+        protected override IEnumerable<Assembly> SelectAssemblies()
+        {
+            List<Assembly> assemblies = new List<Assembly>();
+
+            assemblies.Add(Assembly.Load("IPTV.PlayerControl"));
+            assemblies.Add(Assembly.Load("IPTV_Player"));
+            assemblies.Add(Assembly.Load("M3U8Wrapper"));
+            assemblies.Add(Assembly.Load("IPTV.Core.Presentation"));
+            assemblies.Add(Assembly.Load("IPTV.Logger"));
+            assemblies.Add(Assembly.Load("IPTV.Infrastructure"));
+            assemblies.Add(Assembly.Load("IPTV.DataModel"));
+            return assemblies;
+        }
 
         protected override void BuildUp(object instance)
         {
@@ -80,9 +94,10 @@ namespace IPTV_Player
                 _logger = IoC.Get<ILogger>();
                 _logger.Info("Start Application");
 
-                IShell mainWindow = _container.GetExportedValue<IShell>();
-                IWindowManager windowManager = IoC.Get<IWindowManager>();
-                windowManager.ShowWindow(mainWindow);
+                //IShell mainWindow = _container.GetExportedValue<IShell>();
+                //IWindowManager windowManager = IoC.Get<IWindowManager>();
+                //windowManager.ShowWindow(mainWindow);
+                DisplayRootViewFor<IShell>();
             }
             catch (Exception exception)
             {

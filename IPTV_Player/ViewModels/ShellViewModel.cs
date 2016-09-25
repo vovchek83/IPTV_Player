@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using IPTV.Logger;
-using IPTV_Player.Infrastructure.Services.Interfaces;
+using IPTV.PlayerControl.ViewModels;
 using IPTV_Player.Interfaces;
 
 namespace IPTV_Player.ViewModels
@@ -41,13 +41,13 @@ namespace IPTV_Player.ViewModels
         #region Constractor
 
         [ImportingConstructor]
-        public ShellViewModel(ILogger logger, PlayerViewModel playerViewModel)
+        public ShellViewModel(ILogger logger ,PlayerViewModel playerViewModel)
         {
             _logger = logger;
 
             _navigationStates = new Dictionary<NavigationState, Action<NavigationState>>
             {
-               [NavigationState.Player] = x => InternalNavigateTo(x, playerViewModel),
+                 [NavigationState.Player] = x => InternalNavigateTo(x, playerViewModel),
 
             };
         }

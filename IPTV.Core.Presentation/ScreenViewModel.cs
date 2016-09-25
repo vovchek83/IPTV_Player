@@ -5,6 +5,7 @@ using IPTV.Logger;
 
 namespace IPTV.Core.Presentation
 {
+    [Export]
     public class ScreenViewModel : Screen, IDisposable
     {
         private bool _isBusy;

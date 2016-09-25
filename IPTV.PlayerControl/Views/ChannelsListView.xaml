@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="IPTV.PlayerControl.Views.ChannelsListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+               <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark.xaml"/>
+                <ResourceDictionary>
+                    <DataTemplate x:Key="ChanelItemTemplate">
+                        <Grid Margin="2,3,2,3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.RowSpan="2" Height="40" BorderBrush="Gray" BorderThickness="1"/>
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="0" 
+                                       Text="{Binding Name}" 
+                                       Margin="5,0,0,0"
+                                       FontSize="14"
+                                       FontWeight="Bold"/>
+                        </Grid>
+                       
+                    </DataTemplate>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+ 
+
+    </UserControl.Resources>
+    <DockPanel>
+
+        <!--<views:CustomersToolBarView  DockPanel.Dock="Top"   Height="48"/>-->
+
+        <!--<xctk:BusyIndicator IsBusy="{Binding IsBusy}">-->
+
+        <ListView ItemsSource="{Binding ChannelViewList}"  
+                      ItemContainerStyle="{StaticResource MainListViewItemStyle}"
+                      SelectedItem="{Binding SelectedChannel}"
+                      SelectedIndex="{Binding SelectedIndex}"
+                      ItemTemplate="{StaticResource ChanelItemTemplate}" >
+        </ListView>
+        <!--</xctk:BusyIndicator>-->
+    </DockPanel>
+</UserControl>
