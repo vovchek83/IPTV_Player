@@ -3,16 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-              xmlns:views="clr-namespace:IPTV.PlayerControl.Views"
-             mc:Ignorable="d" >
+             xmlns:views="clr-namespace:IPTV.PlayerControl.Views"
+             mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="265"/>
             <ColumnDefinition Width="6"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <views:ChannelsListView/>
-        
+        <views:MediaControlView Grid.Column="2"/>
+
     </Grid>
 </UserControl>

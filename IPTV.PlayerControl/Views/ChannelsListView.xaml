@@ -39,7 +39,7 @@
     </UserControl.Resources>
     <DockPanel>
 
-        <!--<views:CustomersToolBarView  DockPanel.Dock="Top"   Height="48"/>-->
+        <!--<views:CustomersToolBarView DockPanel.Dock="Top" Height="48"/>-->
 
         <!--<xctk:BusyIndicator IsBusy="{Binding IsBusy}">-->
 

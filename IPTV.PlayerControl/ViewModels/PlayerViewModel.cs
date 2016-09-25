@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -7,6 +8,7 @@ using IPTV.Core.Presentation;
 using IPTV.Infrastructure.Wrappers;
 using IPTV.Logger;
 using IPTV.DataModel.Models;
+using IPTV.PlayerControl.Mappers;
 
 namespace IPTV.PlayerControl.ViewModels
 {
@@ -18,6 +20,7 @@ namespace IPTV.PlayerControl.ViewModels
         private readonly IChannelsWrapper _wrapper;
         private ChannelViewModel _selectedChannel;
         private ICollectionView _channelViewList;
+        private Uri _currentChannelSource;
 
         #endregion
 
@@ -40,7 +43,21 @@ namespace IPTV.PlayerControl.ViewModels
             get { return _selectedChannel; }
             set
             {
-                _selectedChannel = value;
+                if (_selectedChannel != value)
+                {
+                    _selectedChannel = value;
+                    CurrentChannelSource = new Uri(_selectedChannel.Url, UriKind.RelativeOrAbsolute);
+                }
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public Uri CurrentChannelSource
+        {
+            get { return _currentChannelSource; }
+            set
+            {
+                _currentChannelSource = value;
                 NotifyOfPropertyChange();
             }
         }
@@ -48,7 +65,7 @@ namespace IPTV.PlayerControl.ViewModels
         #endregion
 
         [ImportingConstructor]
-        public PlayerViewModel(ILogger logger,IChannelsWrapper wrapper)
+        public PlayerViewModel(ILogger logger, IChannelsWrapper wrapper)
         {
             Logger = logger;
             Logger.Info("Init PlayerViewModel");
@@ -58,8 +75,15 @@ namespace IPTV.PlayerControl.ViewModels
         protected override void OnActivate()
         {
             Logger.Info("OnAvtivate PlayerViewModel");
+            LoadChannel();
+          
+        }
+
+        private async void LoadChannel()
+        {
             IEnumerable<ChannelModel> chanels = _wrapper.WrappChannels();
-            ChannelViewList = CollectionViewSource.GetDefaultView(chanels.Select(channel => new ChannelViewModel(channel)));
+            ChannelsList =  await ChannelsMapper.Map(chanels);
+            ChannelViewList = CollectionViewSource.GetDefaultView(ChannelsList);
         }
     }
 }
