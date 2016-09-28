@@ -41,7 +41,7 @@
 
         <!--<views:CustomersToolBarView DockPanel.Dock="Top" Height="48"/>-->
 
-        <!--<xctk:BusyIndicator IsBusy="{Binding IsBusy}">-->
+        <xctk:BusyIndicator IsBusy="{Binding IsBusy}">
 
         <ListView ItemsSource="{Binding ChannelViewList}"  
                       ItemContainerStyle="{StaticResource MainListViewItemStyle}"
@@ -49,6 +49,7 @@
                       SelectedIndex="{Binding SelectedIndex}"
                       ItemTemplate="{StaticResource ChanelItemTemplate}" >
         </ListView>
-        <!--</xctk:BusyIndicator>-->
+            
+        </xctk:BusyIndicator>
     </DockPanel>
 </UserControl>

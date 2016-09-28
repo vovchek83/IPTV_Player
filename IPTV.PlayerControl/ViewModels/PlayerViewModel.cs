@@ -64,6 +64,8 @@ namespace IPTV.PlayerControl.ViewModels
 
         #endregion
 
+        #region Ctor
+
         [ImportingConstructor]
         public PlayerViewModel(ILogger logger, IChannelsWrapper wrapper)
         {
@@ -76,14 +78,29 @@ namespace IPTV.PlayerControl.ViewModels
         {
             Logger.Info("OnAvtivate PlayerViewModel");
             LoadChannel();
-          
+
         }
+
+        #endregion
+
+        #region Private Methodes
 
         private async void LoadChannel()
         {
-            IEnumerable<ChannelModel> chanels = _wrapper.WrappChannels();
-            ChannelsList =  await ChannelsMapper.Map(chanels);
-            ChannelViewList = CollectionViewSource.GetDefaultView(ChannelsList);
+            IsBusy = true;
+            try
+            {
+                IEnumerable<ChannelModel> chanels = await _wrapper.WrappChannelsAsync();
+                ChannelsList = await ChannelsMapper.Map(chanels);
+                ChannelViewList = CollectionViewSource.GetDefaultView(ChannelsList);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
+
+        #endregion
+
     }
 }

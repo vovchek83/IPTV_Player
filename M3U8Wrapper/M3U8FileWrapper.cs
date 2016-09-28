@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 using IPTV.DataModel;
 using IPTV.DataModel.Models;
@@ -39,9 +40,11 @@ namespace M3U8Wrapper
                 {
                     retModels = ExtractChanlesFromFile(file);
                 }
-
-                //TODO message to user
-                _logger.Error("failed to get file");
+                else
+                {
+                    //TODO message to user
+                    _logger.Error("failed to get file");
+                }
 
                 return retModels;
             }
@@ -52,6 +55,12 @@ namespace M3U8Wrapper
             }
         }
 
+        public async Task<IEnumerable<ChannelModel>> WrappChannelsAsync()
+        {
+            IEnumerable<ChannelModel> retModels = null;
+
+            return await Task.Factory.StartNew(() => WrappChannels());
+        }
 
         #region Private Methods
 
