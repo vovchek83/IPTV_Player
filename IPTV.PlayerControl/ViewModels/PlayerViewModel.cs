@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace IPTV.PlayerControl.ViewModels
         private ChannelViewModel _selectedChannel;
         private ICollectionView _channelViewList;
         private Uri _currentChannelSource;
+        private List<string> _channelsGroup;
 
         #endregion
 
@@ -62,6 +64,18 @@ namespace IPTV.PlayerControl.ViewModels
             }
         }
 
+        public List<string> ChannelsGroup
+        {
+            get { return _channelsGroup; }
+            set
+            {
+                _channelsGroup = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public int SelectedGroupIndex { get; set; }
+
         #endregion
 
         #region Ctor
@@ -71,6 +85,9 @@ namespace IPTV.PlayerControl.ViewModels
         {
             Logger = logger;
             Logger.Info("Init PlayerViewModel");
+            ChannelsGroup = new List<string>();
+            ChannelsGroup.Add("All Channel");
+            SelectedGroupIndex = 0;
             _wrapper = wrapper;
         }
 
@@ -83,6 +100,15 @@ namespace IPTV.PlayerControl.ViewModels
 
         #endregion
 
+        public void ChannelGroupChanged(object selectedItem)
+        {
+            ChannelViewList.Filter = item =>
+             {
+                 ChannelViewModel vitem = item as ChannelViewModel;
+                 return (vitem != null) && (vitem.GroupName.ToString() == selectedItem.ToString());
+             };
+        }
+
         #region Private Methodes
 
         private async void LoadChannel()
@@ -91,8 +117,16 @@ namespace IPTV.PlayerControl.ViewModels
             try
             {
                 IEnumerable<ChannelModel> chanels = await _wrapper.WrappChannelsAsync();
-                ChannelsList = await ChannelsMapper.Map(chanels);
-                ChannelViewList = CollectionViewSource.GetDefaultView(ChannelsList);
+                if (chanels != null)
+                {
+                    ChannelsList = await ChannelsMapper.Map(chanels);
+                    ChannelViewList = CollectionViewSource.GetDefaultView(ChannelsList);
+                    var groups = chanels.GroupBy(x => x.GroupName).Select(y => y.Key.ToString()).ToList();
+                    foreach (var group in groups)
+                    {
+                        ChannelsGroup.Add(group);
+                    }
+                }
             }
             finally
             {

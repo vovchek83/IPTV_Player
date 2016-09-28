@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTV.Core.Presentation", "I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTV.PlayerControl", "IPTV.PlayerControl\IPTV.PlayerControl.csproj", "{9235FF32-ADF7-4455-A103-DE7C558A4FE3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpgWrapper", "EpgWrapper\EpgWrapper.csproj", "{337BE49C-D874-416B-A746-4C7B08A5C70B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,11 +61,16 @@ Global
 		{9235FF32-ADF7-4455-A103-DE7C558A4FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9235FF32-ADF7-4455-A103-DE7C558A4FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9235FF32-ADF7-4455-A103-DE7C558A4FE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{337BE49C-D874-416B-A746-4C7B08A5C70B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{337BE49C-D874-416B-A746-4C7B08A5C70B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{337BE49C-D874-416B-A746-4C7B08A5C70B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{337BE49C-D874-416B-A746-4C7B08A5C70B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{578E8EA1-9FC8-4F6D-8341-DDE7727FE6A9} = {12A7572A-7842-469D-9CCC-D0A033ACB0E3}
+		{337BE49C-D874-416B-A746-4C7B08A5C70B} = {12A7572A-7842-469D-9CCC-D0A033ACB0E3}
 	EndGlobalSection
 EndGlobal

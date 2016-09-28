@@ -8,6 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/Buttons.xaml" />
         <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/ScrollViewer.xaml" />
         <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/ListView.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/App.Themes;component/Dark/Styles/ComboBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
   
 </ResourceDictionary>

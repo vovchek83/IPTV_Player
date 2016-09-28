@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="IPTV.PlayerControl.Views.ChannelsView.ChannelToolBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="600">
+    
+    <ToolBar HorizontalAlignment="Stretch"
+             BorderThickness="0" 
+             Background="{StaticResource FucsiaBrush}" >
+
+        <ComboBox ItemsSource="{Binding ChannelsGroup}"
+                  Width="120" Margin="10,0,10,0"
+                  SelectedIndex="{Binding SelectedGroupIndex}"
+                  cal:Message.Attach="[Event SelectionChanged] = [Action ChannelGroupChanged($this)]"/>
+        <!--<Button Height="48"
+                Width="Auto"
+                IsEnabled="{Binding CanAddNew}"
+                cal:Message.Attach="AddNew">
+            <StackPanel Orientation="Horizontal">
+                <Rectangle Width="39"
+                           Height="39"
+                           Margin="5 5 5 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Fill="{StaticResource NewCustomer}"
+                           Stretch="Uniform" />
+                <TextBlock VerticalAlignment="Center" 
+                           Foreground="White"
+                            Margin="0 0 3 0"
+                           Text="New"/>
+            </StackPanel>
+        </Button>
+
+        <Button Height="48"
+                Width="Auto"
+                IsEnabled="{Binding CanEditCustomer}"
+                cal:Message.Attach="EditCustomer">
+            <StackPanel Orientation="Horizontal">
+                <Rectangle Width="39"
+                           Height="39"
+                           Margin="5 5 5 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Fill="{StaticResource EditCustomer}"
+                           Stretch="Uniform" />
+                <TextBlock VerticalAlignment="Center"
+                           Foreground="White" 
+                            Margin="0 0 3 0"
+                           Text="Edit"/>
+            </StackPanel>
+        </Button>
+
+        <Button Height="48"
+                Width="Auto"
+                IsEnabled="{Binding CanPlaceOrder}"
+                cal:Message.Attach="PlaceOrder">
+
+            <StackPanel Orientation="Horizontal">
+                <Rectangle Width="39"
+                           Height="39"
+                           Margin="5 5 5 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Fill="{StaticResource PlaceOrder}"
+                           Stretch="Uniform" />
+                <TextBlock VerticalAlignment="Center"
+                           Foreground="White"
+                            Margin="0 0 3 0"
+                           Text="Place Order"/>
+            </StackPanel>
+        </Button>-->
+
+        <!--*************************** Search ***********************-->
+        <StackPanel Margin="50,0,0,0"
+                    Orientation="Horizontal" 
+                    Height="22" 
+                    VerticalAlignment="Center">
+
+            <TextBlock Text="Search:" 
+                       Style="{StaticResource MainTextStyle}" 
+                       Foreground="White" />
+            <TextBox Text="{Binding SearchInput, UpdateSourceTrigger=PropertyChanged}"
+                         Width="150"/>
+        </StackPanel>
+
+    </ToolBar>
+</UserControl>

@@ -115,6 +115,9 @@
     <Compile Include="Views\ChannelsListView.xaml.cs">
       <DependentUpon>ChannelsListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ChannelsView\ChannelToolBarView.xaml.cs">
+      <DependentUpon>ChannelToolBarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MediaControlView.xaml.cs">
       <DependentUpon>MediaControlView.xaml</DependentUpon>
     </Compile>
@@ -162,6 +165,10 @@
     <Page Include="Views\ChannelsListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ChannelsView\ChannelToolBarView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MediaControlView.xaml">
       <SubType>Designer</SubType>
